@@ -1,0 +1,101 @@
+{
+  "broker": {
+    "name": "Refinery Tank Simulator MQTT Broker",
+    "host": "panel.atilax.io",
+    "port": 1884,
+    "security": {
+      "type": "basic",
+      "username": "tbmq_un_S68jP2aa",
+      "password": "10203040"
+    }
+  },
+  "mapping": [
+    {
+      "topicFilter": "v1/gateway/#",
+      "converter": {
+        "type": "json",
+        "deviceNameJsonExpression": "${$.id}",
+        "deviceTypeJsonExpression": "Tank",
+        "attributes": [
+          {
+            "key": "id",
+            "type": "string",
+            "value": "${$.id}"
+          },
+          {
+            "key": "patio",
+            "type": "string",
+            "value": "${$.patio}"
+          },
+          {
+            "key": "product",
+            "type": "string",
+            "value": "${$.product}"
+          },
+          {
+            "key": "height",
+            "type": "double",
+            "value": "${$.height}"
+          },
+          {
+            "key": "diameter",
+            "type": "double",
+            "value": "${$.diameter}"
+          },
+          {
+            "key": "capacity",
+            "type": "double",
+            "value": "${$.capacity}"
+          },
+          {
+            "key": "tank_type",
+            "type": "string",
+            "value": "${$.tank_type}"
+          },
+          {
+            "key": "strapping_table",
+            "type": "json",
+            "value": "${$.strapping_table}"
+          }
+        ],
+        "timeseries": [
+          {
+            "key": "level",
+            "type": "double",
+            "value": "${$.level}"
+          },
+          {
+            "key": "volume",
+            "type": "double",
+            "value": "${$.volume}"
+          },
+          {
+            "key": "fill_percentage",
+            "type": "double",
+            "value": "${$.fill_percentage}"
+          },
+          {
+            "key": "state",
+            "type": "string",
+            "value": "${$.state}"
+          },
+          {
+            "key": "temperatures",
+            "type": "json",
+            "value": "${$.temperatures}"
+          },
+          {
+            "key": "average_temperature",
+            "type": "double",
+            "value": "${$.average_temperature}"
+          },
+          {
+            "key": "pressure",
+            "type": "double",
+            "value": "${$.pressure}"
+          }
+        ]
+      }
+    }
+  ]
+}

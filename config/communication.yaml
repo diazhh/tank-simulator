@@ -1,0 +1,89 @@
+# Communication Configuration
+
+# MQTT Configuration for ThingsBoard
+mqtt:
+  # Configuración para ThingsBoard
+  broker: "panel.atilax.io"
+  port: 1884
+  client_id: "tank_simulator"
+  username: "tbmq_un_S68jP2aa"
+  password: "10203040"
+  qos: 1
+  retain: false
+  # Habilitar conexión MQTT
+  enabled: true
+  
+  # ThingsBoard specific settings
+  thingsboard:
+    # Tópico base para enviar datos a ThingsBoard
+    base_topic: "v1/gateway"
+    # Tópico para telemetría
+    telemetry_topic: "telemetry"
+    # Tópico para atributos
+    attributes_topic: "attributes"
+    # Tópico para conectar dispositivos
+    connect_topic: "connect"
+    # Tópico para desconectar dispositivos
+    disconnect_topic: "disconnect"
+    
+  # Publishing intervals (seconds)
+  publish_intervals:
+    telemetry: 60
+    attributes: 300
+    
+  # Connection settings
+  connection:
+    keep_alive: 60
+    reconnect_delay: 5
+    max_reconnect_attempts: 12
+
+# Modbus RTU Server Configuration
+modbus:
+  # Modbus server settings
+  server:
+    mode: "rtu"  # Cambiado de TCP a RTU
+    port: "/tmp/ttyS10"  # Puerto serial virtual para el servidor
+    baudrate: 9600
+    bytesize: 8
+    parity: "N"
+    stopbits: 1
+    timeout: 1
+    unit_id: 1
+    
+  # Register mapping configuration
+  registers:
+    # Base address for each tank (tanks will be allocated sequential blocks)
+    tank_base_address: 1000
+    # Offset within each tank's register block
+    offsets:
+      level: 0            # Level in mm (holding register)
+      temperature_1: 1    # Temperature sensor 1 (holding register)
+      temperature_2: 2    # Temperature sensor 2 (holding register)
+      temperature_3: 3    # Temperature sensor 3 (holding register)
+      temperature_4: 4    # Temperature sensor 4 (holding register)
+      temperature_5: 5    # Temperature sensor 5 (holding register)
+      temperature_6: 6    # Temperature sensor 6 (holding register)
+      pressure: 7         # Pressure (holding register)
+      radar_height: 8     # Radar installation height (holding register)
+      fine_adjustment: 9  # Fine adjustment offset (holding register)
+      
+  # Register block size per tank
+  registers_per_tank: 20  # Allocate 20 registers per tank for future expansion
+  
+  # Modbus data types
+  data_types:
+    level: "uint32"
+    temperature: "int16"
+    pressure: "uint16"
+    radar_height: "uint32"
+    fine_adjustment: "int16"
+
+# ThingsBoard Gateway Configuration
+thingsboard_gateway:
+  # MQTT extension configuration for ThingsBoard Gateway
+  mqtt_extension:
+    mapping_file: "mqtt_mapping.json"
+    
+  # Modbus extension configuration for ThingsBoard Gateway
+  modbus_extension:
+    mapping_file: "modbus_mapping.json"

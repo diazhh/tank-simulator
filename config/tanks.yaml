@@ -1,0 +1,82 @@
+# Tank Configuration
+
+# Patio definitions
+patios:
+  - name: "Cerro de Carga"
+    prefix: "CRG"
+    count: 20
+    tank_sizes:
+      small: 0.3  # 30% of tanks
+      medium: 0.5  # 50% of tanks
+      large: 0.2  # 20% of tanks
+  
+  - name: "Osanco"
+    prefix: "OSA"
+    count: 28
+    tank_sizes:
+      small: 0.2
+      medium: 0.6
+      large: 0.2
+  
+  - name: "Chaure"
+    prefix: "CHR"
+    count: 23
+    tank_sizes:
+      small: 0.4
+      medium: 0.4
+      large: 0.2
+  
+  - name: "Refinería"
+    prefix: "REF"
+    count: 60
+    tank_sizes:
+      small: 0.25
+      medium: 0.5
+      large: 0.25
+
+# Tank size definitions (in barrels)
+tank_size_ranges:
+  small:
+    min_capacity: 50000
+    max_capacity: 100000
+    min_height: 12
+    max_height: 15
+  
+  medium:
+    min_capacity: 100001
+    max_capacity: 175000
+    min_height: 15
+    max_height: 18
+  
+  large:
+    min_capacity: 175001
+    max_capacity: 250000
+    min_height: 18
+    max_height: 20
+
+# Product distribution probabilities
+product_distribution:
+  crudo: 0.25
+  gasolina: 0.25
+  diesel: 0.25
+  fuel_jet: 0.15
+  asfalto: 0.10
+
+# Tank types and their characteristics
+tank_types:
+  standard:
+    probability: 0.7
+    description: "Standard cylindrical tank"
+    deformation_factor: 0.0
+  
+  floating_roof:
+    probability: 0.2
+    description: "Tank with floating roof"
+    deformation_factor: 0.02
+    roof_weight: 15000  # kg
+  
+  conical_bottom:
+    probability: 0.1
+    description: "Tank with conical bottom"
+    deformation_factor: 0.01
+    cone_angle: 15  # degrees

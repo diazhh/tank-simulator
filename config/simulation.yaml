@@ -1,0 +1,70 @@
+# Simulation Configuration
+
+# General simulation settings
+simulation:
+  update_interval: 60  # Seconds between updates
+  duration: -1  # -1 for indefinite simulation
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  random_seed: 42  # For reproducible results
+
+# Environmental factors
+environment:
+  ambient_temperature: 25.0  # Degrees Celsius
+  temperature_variation: 5.0  # Daily temperature variation
+  
+# Operation parameters
+operations:
+  min_rest_time: 1800  # Minimum time between operations (seconds)
+  max_rest_time: 14400  # Maximum time between operations (seconds)
+  
+  # Flow rates in barrels/hour for different products
+  flow_rates:
+    crudo:
+      min_fill: 1000
+      max_fill: 3000
+      min_drain: 1000
+      max_drain: 2500
+    gasolina:
+      min_fill: 2000
+      max_fill: 4000
+      min_drain: 2000
+      max_drain: 4500
+    diesel:
+      min_fill: 2000
+      max_fill: 4500
+      min_drain: 2000
+      max_drain: 4000
+    fuel_jet:
+      min_fill: 2500
+      max_fill: 5000
+      min_drain: 2500
+      max_drain: 4500
+    asfalto:
+      min_fill: 800
+      max_fill: 1500
+      min_drain: 800
+      max_drain: 1200
+      
+  # Temperature ranges for different products (Celsius)
+  temperature_ranges:
+    crudo:
+      min: 60
+      max: 80
+    gasolina:
+      min: 15
+      max: 30
+    diesel:
+      min: 20
+      max: 40
+    fuel_jet:
+      min: 15
+      max: 25
+    asfalto:
+      min: 150
+      max: 180
+
+# Radar simulation parameters
+radar:
+  measurement_error: 1.0  # Error in mm
+  update_frequency: 30  # Seconds between measurements
+  temperature_sensors: 6  # Number of temperature sensors per tank
