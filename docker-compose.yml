@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Tank Simulator
+  tank-simulator:
+    build: .
+    container_name: tank-simulator
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./thingsboard_gateway:/app/thingsboard_gateway
+    ports:
+      - "5020:5020"  # Modbus server port
+    restart: unless-stopped
+    networks:
+      - simulator-network
+
+  # ThingsBoard Community Edition
+  thingsboard:
+    image: thingsboard/tb-postgres
+    container_name: thingsboard
+    ports:
+      - "8080:9090"  # Web UI
+      - "1883:1883"  # MQTT
+      - "7070:7070"  # HTTP
+    environment:
+      - TB_QUEUE_TYPE=in-memory
+    volumes:
+      - tb-data:/data
+      - tb-logs:/var/log/thingsboard
+    restart: unless-stopped
+    networks:
+      - simulator-network
+
+  # ThingsBoard Gateway
+  tb-gateway:
+    image: thingsboard/tb-gateway
+    container_name: tb-gateway
+    depends_on:
+      - thingsboard
+    volumes:
+      - ./thingsboard_gateway:/thingsboard_gateway/config/custom
+    environment:
+      - MQTT_HOST=thingsboard
+      - MQTT_PORT=1883
+      - GATEWAY_MQTT_PORT=1883
+    restart: unless-stopped
+    networks:
+      - simulator-network
+
+networks:
+  simulator-network:
+    driver: bridge
+
+volumes:
+  tb-data:
+  tb-logs:
